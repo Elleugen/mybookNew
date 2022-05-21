@@ -31,6 +31,7 @@ function BookCardsComponent({currentDashboard, getDashboard}) {
   var lis = [];
 
   for (var i = 0; i < rating; i++) {
+    console.log('rating::', rating);
     lis.push(<Image style={styles.ratingImage} source={Images.rating} />);
   }
 
@@ -38,14 +39,20 @@ function BookCardsComponent({currentDashboard, getDashboard}) {
     <View>
       {currentDashboard?.lenght !== 0 &&
         currentDashboard?.items?.map((books, i) => {
-          console.log('All books ::', books);
+          // console.log('All books ::', books);
           // console.log('searchBooks ::', searchBooks);
+          // console.log(
+          //   'books.volumeInfo.ratingsCount ::',
+          //   books.volumeInfo.ratingsCount,
+          // );
           console.log(
-            'books.volumeInfo.ratingsCount ::',
-            books.volumeInfo.ratingsCount,
+            'books.volumeInfo.averageRating ::',
+            books.volumeInfo.averageRating,
           );
           books?.volumeInfo?.readingModes?.text == false;
-          // setRating(books.volumeInfo.ratingsCount);
+          // const rate = books.volumeInfo.averageRating;
+          // console.log('rate::', rate);
+          // setRating(books.volumeInfo.averageRating);
           return (
             // <View key={books.id}>
             <View key={i} style={styles.mainView}>
@@ -139,7 +146,7 @@ function BookCardsComponent({currentDashboard, getDashboard}) {
                     <Text style={styles.ratingText} ellipsizeMode="tail">
                       Rating : {books.volumeInfo.averageRating}
                     </Text>
-                    {/* {lis} */}
+                    {lis}
                     <Image style={styles.ratingImage} source={Images.rating} />
                     {/* <StarRating
                       disabled={false}
