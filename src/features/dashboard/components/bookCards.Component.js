@@ -1,49 +1,202 @@
-import React from 'react';
-import {View, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import {Text as PaperText, Button as PaperButton} from 'react-native-paper';
-import {Fonts} from '../../../assets';
-// import {translations} from '../../../constants/translations/index';
+import React, {useCallback, useState, useEffect} from 'react';
+import {useFocusEffect} from '@react-navigation/native';
+import {View, StyleSheet, TouchableOpacity, Image, Text} from 'react-native';
+import {connect} from 'react-redux';
+import {createStructuredSelector} from 'reselect';
+import {selectorCurrentDashboard, getDashboard} from '../redux';
+import StarRating from 'react-native-star-rating';
 import Images from '../../../assets';
 
-function BookCardsComponent() {
+function BookCardsComponent({currentDashboard, getDashboard}) {
+  console.log('currentDashboard NI:', currentDashboard);
+  useFocusEffect(
+    useCallback(() => {
+      getDashboard();
+      console.log('currentDashboard(after):', currentDashboard);
+    }, []),
+  );
+
+  // const [searchBooks, setSearchBooks] = useState('');
+  // console.log('searchBooks ::', searchBooks);
+
+  const [rating, setRating] = useState(0);
+  const [bookmarked, setBookmarked] = useState(0);
+  // const bookmarked[];
+
+  // const onStarRatingPress = () => {
+  //   this.setState({
+  //     starCount: rating
+  //   });
+  // }
+  var lis = [];
+
+  for (var i = 0; i < rating; i++) {
+    lis.push(<Image style={styles.ratingImage} source={Images.rating} />);
+  }
+
   return (
-    <View style={styles.mainView}>
-      <Image style={styles.thumbnail} source={Images.background} />
-      <PaperText style={styles.headerTitle}>my Book</PaperText>
-      <PaperText style={styles.headerText}>
-        Jika Anda Mengalami Masalah Atau Membutuhkan Informasi Lebih Lanjut
-      </PaperText>
-      <PaperButton
-        mode={'contained'}
-        uppercase={false}
-        contentStyle={styles.helpButtonContainer}
-        style={styles.helpButtonStyle}
-        labelStyle={styles.helpButtonLabelStyle}
-        color={'#E60600'}>
-        Hubungi Kami
-      </PaperButton>
+    <View>
+      {currentDashboard?.lenght !== 0 &&
+        currentDashboard?.items?.map((books, i) => {
+          console.log('All books ::', books);
+          // console.log('searchBooks ::', searchBooks);
+          console.log(
+            'books.volumeInfo.ratingsCount ::',
+            books.volumeInfo.ratingsCount,
+          );
+          books?.volumeInfo?.readingModes?.text == false;
+          // setRating(books.volumeInfo.ratingsCount);
+          return (
+            // <View key={books.id}>
+            <View key={i} style={styles.mainView}>
+              <View style={styles.thumbnailContainer}>
+                <View style={styles.imageContainer}>
+                  <Image
+                    style={styles.image}
+                    // source={Images.background}
+                    source={{
+                      uri: books?.volumeInfo?.imageLinks?.smallThumbnail,
+                    }}
+                  />
+                </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    // books?.volumeInfo?.readingModes === true;
+                    setBookmarked(bookmarked + 1);
+                    console.log('bookmarked::', bookmarked);
+                    // console.log(
+                    //   'books?.volumeInfo?.readingModes.text ::',
+                    //   books?.volumeInfo?.readingModes.text,
+                    // );
+                  }}>
+                  {bookmarked % 2 === 0 ? (
+                    <View style={styles.bookmarkImageContainer}>
+                      <Image
+                        style={styles.bookmarkImage}
+                        source={Images.bookmark}
+                      />
+                    </View>
+                  ) : (
+                    <View style={styles.bookmarkImageContainer}>
+                      <Image
+                        style={styles.bookmarkImage}
+                        source={Images.unBookmark}
+                      />
+                    </View>
+                  )}
+                </TouchableOpacity>
+              </View>
+              <View>
+                <View style={styles.titleTextContainer}>
+                  <Text style={styles.bookTitle}>{books.volumeInfo.title}</Text>
+                </View>
+                {books.volumeInfo.authors == null ||
+                books.volumeInfo.authors == '' ? (
+                  <View style={styles.authorTextContainer}>
+                    <Text style={styles.bookAuthor}>by unknown</Text>
+                  </View>
+                ) : (
+                  <View style={styles.authorTextContainer}>
+                    <Text style={styles.bookAuthor}>
+                      by {books.volumeInfo.authors}
+                    </Text>
+                  </View>
+                )}
+
+                {books.volumeInfo.description == null ||
+                books.volumeInfo.description == '' ? (
+                  <Text
+                    style={styles.headerText}
+                    numberOfLines={2}
+                    ellipsizeMode="tail">
+                    no Desciptions
+                  </Text>
+                ) : (
+                  <Text
+                    style={styles.headerText}
+                    numberOfLines={4}
+                    ellipsizeMode="tail">
+                    {books.volumeInfo.description}
+                  </Text>
+                )}
+              </View>
+              <View>
+                {books.volumeInfo.ratingsCount == null ||
+                books.volumeInfo.ratingsCount == '' ? (
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Text style={styles.ratingText} ellipsizeMode="tail">
+                      no Ratings
+                    </Text>
+                    {/* <StarRating
+                      disabled={false}
+                      maxStars={5}
+                      // rating={this.state.starCount}
+                      // selectedStar={rating => this.onStarRatingPress(rating)}
+                    /> */}
+                  </View>
+                ) : (
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Text style={styles.ratingText} ellipsizeMode="tail">
+                      Rating : {books.volumeInfo.averageRating}
+                    </Text>
+                    {/* {lis} */}
+                    <Image style={styles.ratingImage} source={Images.rating} />
+                    {/* <StarRating
+                      disabled={false}
+                      maxStars={5}
+                      rating={setRating(books.volumeInfo.ratingsCount)}
+                      // selectedStar={rating => this.onStarRatingPress(rating)}
+                    /> */}
+                  </View>
+                )}
+              </View>
+            </View>
+          );
+        })}
     </View>
   );
 }
 
-export default BookCardsComponent;
+const mapStateToProps = createStructuredSelector({
+  currentDashboard: selectorCurrentDashboard,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getDashboard: () => dispatch(getDashboard()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookCardsComponent);
 
 const styles = StyleSheet.create({
   mainView: {
-    // borderTopWidth: 0.6,
-    borderRadius: 20,
-    borderColor: 'lightgrey',
-    alignItems: 'center',
+    borderBottomRightRadius: 50,
+    borderWidth: 5,
+    borderLeftColor: 'rgba(255, 255, 255, 0)',
+    borderTopColor: 'rgba(255, 255, 255, 0)',
+    borderRightColor: 'rgba(255, 0,0, 0.6)',
+    borderBottomColor: 'rgba(255, 0,0, 0.6)',
     paddingVertical: 15,
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    marginVertical: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    marginVertical: 5,
     marginHorizontal: 20,
     paddingVertical: 20,
     paddingHorizontal: 20,
   },
-  headerTitle: {
+  titleTextContainer: {
+    alignItems: 'center',
+  },
+  authorTextContainer: {
+    alignItems: 'flex-end',
+  },
+  bookTitle: {
     fontFamily: 'Poppins-Regular',
     fontSize: 17,
+    color: 'black',
+    fontWeight: 'bold',
+  },
+  bookAuthor: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 10,
     paddingBottom: 8,
     color: 'black',
   },
@@ -54,28 +207,43 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     color: 'black',
   },
-  helpButtonStyle: {
-    width: '100%',
+  ratingText: {
+    textAlign: 'center',
+    fontSize: 14,
+    color: 'black',
+  },
+  textInputContainer: {
+    marginHorizontal: 20,
+    marginVertical: 20,
+    height: 100,
+  },
+  textTitle: {
+    color: 'black',
+  },
+  thumbnailContainer: {
+    flexDirection: 'row',
+  },
+  imageContainer: {
     alignSelf: 'center',
-    elevation: 3,
-    borderRadius: 7,
+  },
+  image: {
+    height: 150,
+    width: 300,
+    borderRadius: 20,
     justifyContent: 'center',
   },
-  helpButtonContainer: {
-    width: '100%',
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
+  bookmarkImage: {
+    height: 20,
+    width: 20,
+    marginLeft: 10,
+    alignItems: 'flex-end',
   },
-  helpButtonLabelStyle: {
-    fontSize: 16,
-    letterSpacing: 0.2,
-    fontFamily: 'Poppins-Black',
+  bookmarkImageContainer: {
+    alignItems: 'flex-end',
   },
-  thumbnail: {
-    height: 60,
-    width: 67,
-    marginRight: 10,
+  ratingImage: {
+    height: 30,
+    width: 30,
     justifyContent: 'center',
   },
 });

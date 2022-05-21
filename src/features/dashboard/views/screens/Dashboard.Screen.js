@@ -24,9 +24,9 @@ import {
 } from 'react-native-paper';
 import {useFocusEffect} from '@react-navigation/native';
 import {
-  BookCards,
+  // BookCards,
+  // Header,
   BookCardsComponent,
-  Header,
   HeaderComponent,
   SearchBarComponent,
 } from '../../components';
@@ -44,12 +44,12 @@ function DashboardScreen({currentDashboard, getDashboard}) {
   //   });
 
   // console.log('currentDashboard NI:', currentDashboard);
-  console.log('currentDashboard NI:', currentDashboard);
-  useFocusEffect(
-    useCallback(() => {
-      getDashboard();
-    }, []),
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     getDashboard();
+  //     console.log('currentDashboard(after):', currentDashboard);
+  //   }, []),
+  // );
   return (
     <View style={styles.screen}>
       <ImageBackground
@@ -57,13 +57,9 @@ function DashboardScreen({currentDashboard, getDashboard}) {
         style={{height: '100%'}}
         imageStyle={{opacity: 0.8}}>
         <SafeAreaView>
-          <HeaderComponent />
+          {/* <HeaderComponent /> */}
           <SearchBarComponent />
           <BookCardsComponent />
-          <HeaderComponent />
-          <HeaderComponent />
-          <HeaderComponent />
-          <HeaderComponent />
         </SafeAreaView>
       </ImageBackground>
 
