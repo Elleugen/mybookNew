@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 import com.android.build.OutputFile
 import org.apache.tools.ant.taskdefs.condition.Os
@@ -132,6 +133,8 @@ def reactNativeArchitectures() {
 android {
     ndkVersion rootProject.ext.ndkVersion
 
+    flavorDimensions 'default'
+
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
@@ -255,6 +258,27 @@ android {
                         defaultConfig.versionCode * 1000 + versionCodes.get(abi)
             }
 
+        }
+    }
+    productFlavors {
+        dev {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId 'com.mybook.dev'
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.mybook"
+        }
+        staging {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId 'com.mybook.staging'
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.mybook"
+        }
+
+        production {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId 'com.mybook'
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.mybook"
         }
     }
 }
