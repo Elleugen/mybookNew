@@ -19,10 +19,10 @@ FetchInterceptor.interceptors.request.use(
     const {method, url} = config;
     console.log(`Request ${method.toUpperCase()} ${url}: `, config.data);
 
-    const {userToken} = store.getState().authentication;
-    if (userToken) {
-      config.headers.Authorization = `Bearer ${userToken}`;
-    }
+    // const {userToken} = store.getState().authentication;
+    // if (userToken) {
+    //   config.headers.Authorization = `Bearer ${userToken}`;
+    // }
     return config;
   },
   error => {
