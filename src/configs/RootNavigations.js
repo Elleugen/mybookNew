@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {Provider as PaperProvider} from 'react-native-paper';
 // import MainMenu from '../features/main_menu/index';
 import Dashboard from '../features/dashboard/navigation';
+import Wishlist from '../features/wishlist/navigation';
 import {enableScreens} from 'react-native-screens';
 
 enableScreens(true);
@@ -26,9 +27,8 @@ function RootStackScreens() {
         orientation: 'portrait',
       }}>
       {Object.entries({
-        // ...MainMenu,
         ...Dashboard,
-        // ...Contact
+        ...Wishlist,
       }).map(([name, component], id) => (
         <Stack.Screen
           key={id}
