@@ -18,7 +18,7 @@ function SearchBarComponent({currentDashboard, getDashboard}) {
     }, []),
   );
 
-  const [searchBooks, setSearchBooks] = useState('');
+  const [searchBooks, setSearchBooks] = useState(null);
   console.log('searchBooks ::', searchBooks);
   // const [phoneNumberError, setPhoneNumberError] = useState(false);
 
@@ -30,7 +30,8 @@ function SearchBarComponent({currentDashboard, getDashboard}) {
   return (
     <View style={styles.mainView}>
       <View style={styles.titleTextContainer}>
-        <Text style={styles.headerTitle}>Find your favorite book here!</Text>
+        {/* <Text style={styles.headerTitle}>myBook Collections</Text> */}
+        <Image style={styles.logoImage} source={Images.logo} />
       </View>
       <View style={styles.textInputContainer}>
         <TextInput
@@ -43,7 +44,7 @@ function SearchBarComponent({currentDashboard, getDashboard}) {
           style={{
             height: 50,
             // width: '500%',
-            backgroundColor: 'rgba(255,0,0,0.7)',
+            backgroundColor: 'rgba(255,0,0,1)',
           }}
           // keyboardType="phone-pad"
           activeUnderlineColor={'white'}
@@ -132,8 +133,13 @@ const styles = StyleSheet.create({
   titleTextContainer: {
     alignItems: 'center',
   },
+  logoImage: {
+    height: 80,
+    width: 250,
+  },
   headerTitle: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Pacifico-Regular',
+    // fontFamily: 'Poppins-Regular',
     fontSize: 24,
     color: 'black',
     fontWeight: 'bold',

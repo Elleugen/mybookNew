@@ -33,15 +33,19 @@ import {
 import {Theme} from '../../../../configs/ThemeConfig';
 import {FontWeightConfig} from '../../../../configs/FontConfig';
 import Images from '../../../../assets/';
-// import { PaperComponent } from '../../components';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import {selectorCurrentDashboard, getDashboard} from '../../redux';
+import {FloatingAction} from 'react-native-floating-action';
+import {useNavigation} from '@react-navigation/native';
 
 function DashboardScreen({currentDashboard, getDashboard}) {
-  //   useEffect(() => {
-  //     setTranslate(t('common:floatingButton.translate'));
-  //   });
+  const navigation = useNavigation();
+  // useEffect(() => {
+  //   // setTranslate(t('common:floatingButton.translate'));
+  //   let fontName = 'Pacifico-Regular';
+  //   GlobalFont.applyGlobal(fontName);
+  // });
 
   // console.log('currentDashboard NI:', currentDashboard);
   // useFocusEffect(
@@ -50,6 +54,14 @@ function DashboardScreen({currentDashboard, getDashboard}) {
   //     console.log('currentDashboard(after):', currentDashboard);
   //   }, []),
   // );
+  const actions = [
+    {
+      text: 'Bookmarks',
+      icon: Images.bookmark,
+      name: 'bt_bookmarks',
+      position: 1,
+    },
+  ];
   return (
     <View style={styles.screen}>
       <ImageBackground
@@ -62,8 +74,13 @@ function DashboardScreen({currentDashboard, getDashboard}) {
           <BookCardsComponent />
         </SafeAreaView>
       </ImageBackground>
-
-      {/* CHANGE LANGUAGES DIALOG */}
+      <FloatingAction
+        actions={actions}
+        onPressItem={name => {
+          navigation.navigate('Dashboard.WishlistScreen');
+          console.log(`selected button: ${name}`);
+        }}
+      />
     </View>
   );
 }
@@ -73,7 +90,6 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  // getProducts: () => dispatch(getProducts()),
   getDashboard: () => dispatch(getDashboard()),
 });
 

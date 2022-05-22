@@ -6,7 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 // import {Colors} from '../../resources';
 
 export default {
-  'Authentication.DashboardScreen': {
+  'Dashboard.DashboardScreen': {
     screen: DashboardScreen,
     options: {
       // header: () => {
