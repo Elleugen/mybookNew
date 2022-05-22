@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState, useEffect, Fragment} from 'react';
 import {View, StatusBar} from 'react-native';
 
 import {RootNavigation} from './src/configs';
 import {PersistGate} from 'redux-persist/integration/react';
 import {Provider as PaperProvider} from 'react-redux';
 import configStore from './src/state_management';
-// import './src/constants/IMLocalize';
 
 const {store, persistor} = configStore();
 

@@ -29,39 +29,17 @@ import {
   BookCardsComponent,
   HeaderComponent,
   SearchBarComponent,
-} from '../../components';
+  // } from '../../components';
+} from '../../../dashboard/components';
 import {Theme} from '../../../../configs/ThemeConfig';
 import {FontWeightConfig} from '../../../../configs/FontConfig';
 import Images from '../../../../assets/';
+// import { PaperComponent } from '../../components';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
-import {selectorCurrentDashboard, getDashboard} from '../../redux';
-import {FloatingAction} from 'react-native-floating-action';
-import {useNavigation} from '@react-navigation/native';
+import {selectorCurrentWishlist, getWishlist} from '../../redux';
 
-function DashboardScreen({currentDashboard, getDashboard}) {
-  const navigation = useNavigation();
-  // useEffect(() => {
-  //   // setTranslate(t('common:floatingButton.translate'));
-  //   let fontName = 'Pacifico-Regular';
-  //   GlobalFont.applyGlobal(fontName);
-  // });
-
-  // console.log('currentDashboard NI:', currentDashboard);
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     getDashboard();
-  //     console.log('currentDashboard(after):', currentDashboard);
-  //   }, []),
-  // );
-  const actions = [
-    {
-      text: 'Bookmarks',
-      icon: Images.bookmark,
-      name: 'bt_bookmarks',
-      position: 1,
-    },
-  ];
+function WishlistScreen({currentWishlist, getWishlist}) {
   return (
     <View style={styles.screen}>
       <ImageBackground
@@ -69,32 +47,23 @@ function DashboardScreen({currentDashboard, getDashboard}) {
         style={{height: '100%'}}
         imageStyle={{opacity: 0.8}}>
         <SafeAreaView>
-          {/* <HeaderComponent /> */}
-          <SearchBarComponent />
+          <HeaderComponent />
           <BookCardsComponent />
         </SafeAreaView>
       </ImageBackground>
-      <FloatingAction
-        actions={actions}
-        onPressItem={name => {
-          navigation.navigate('Dashboard.WishlistScreen');
-          console.log(`selected button: ${name}`);
-        }}
-      />
     </View>
   );
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentDashboard: selectorCurrentDashboard,
+  currentWishlist: selectorCurrentWishlist,
 });
 
 const mapDispatchToProps = dispatch => ({
-  getDashboard: () => dispatch(getDashboard()),
+  getWishlist: () => dispatch(getWishlist()),
 });
 
-// export default DashboardScreen;
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(WishlistScreen);
 
 const styles = StyleSheet.create({
   screen: {

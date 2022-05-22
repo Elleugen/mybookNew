@@ -3,16 +3,14 @@ import {useFocusEffect} from '@react-navigation/native';
 import {View, StyleSheet, TouchableOpacity, Image, Text} from 'react-native';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
-import {selectorCurrentDashboard, getDashboard} from '../redux';
-import StarRating from 'react-native-star-rating';
+import {selectorCurrentWishlist, getWishlist} from '../redux';
 import Images from '../../../assets';
 
-function BookCardsComponent({currentDashboard, getDashboard}) {
-  // console.log('currentDashboard NI:', currentDashboard);
+function WishlistComponent({currentWishlist, getWishlist}) {
+  console.log('currentWishlist NI:', currentWishlist);
   useFocusEffect(
     useCallback(() => {
-      getDashboard();
-      // console.log('currentDashboard(after):', currentDashboard);
+      getWishlist();
     }, []),
   );
 
@@ -37,8 +35,8 @@ function BookCardsComponent({currentDashboard, getDashboard}) {
 
   return (
     <View>
-      {currentDashboard?.lenght !== 0 &&
-        currentDashboard?.items?.map((books, i) => {
+      {currentWishlist?.lenght !== 0 &&
+        currentWishlist?.items?.map((books, i) => {
           // console.log('All books ::', books);
           // console.log('searchBooks ::', searchBooks);
           // console.log(
@@ -165,14 +163,14 @@ function BookCardsComponent({currentDashboard, getDashboard}) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentDashboard: selectorCurrentDashboard,
+  currentWishlist: selectorCurrentWishlist,
 });
 
 const mapDispatchToProps = dispatch => ({
-  getDashboard: () => dispatch(getDashboard()),
+  getWishlist: () => dispatch(getWishlist()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookCardsComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(WishlistComponent);
 
 const styles = StyleSheet.create({
   mainView: {

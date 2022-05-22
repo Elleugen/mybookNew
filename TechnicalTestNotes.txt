@@ -1,0 +1,15 @@
+Done:
+    -GET API 
+        ket: (Titles, images/thumbnails, authors, ratings, etc)
+    -UI designs
+        ket:
+        -Dashboard module (Filter/Searchbar, All books dengan validator)
+        -Bookmarks module
+    -Menggunakan material UI (react-native paper)
+
+Unfinnished:
+    -Search Filter(Send keyword from user input)
+        ket: blm bisa send parameter pada GET method
+    -Rating using plugin
+        ket: blm ketemu mobile plugin yg cocok untuk rater
+    -Wishlist

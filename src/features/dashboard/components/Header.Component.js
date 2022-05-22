@@ -7,19 +7,8 @@ import {Fonts} from '../../../assets';
 function HeaderComponent() {
   return (
     <View style={styles.mainView}>
-      <PaperText style={styles.headerTitle}>my Book</PaperText>
-      <PaperText style={styles.headerText}>
-        Jika Anda Mengalami Masalah Atau Membutuhkan Informasi Lebih Lanjut
-      </PaperText>
-      <PaperButton
-        mode={'contained'}
-        uppercase={false}
-        contentStyle={styles.helpButtonContainer}
-        style={styles.helpButtonStyle}
-        labelStyle={styles.helpButtonLabelStyle}
-        color={'#E60600'}>
-        Hubungi Kami
-      </PaperButton>
+      <PaperText style={styles.headerTitle}>myBookmarks</PaperText>
+      {/* <PaperText style={styles.headerText}>LoremIpsum</PaperText> */}
     </View>
   );
 }
@@ -41,9 +30,10 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontFamily: 'Poppins-Regular',
-    fontSize: 17,
+    fontSize: 40,
     paddingBottom: 8,
     color: 'black',
+    fontWeight: 'bold',
   },
   headerText: {
     textAlign: 'center',
@@ -51,23 +41,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingBottom: 10,
     color: 'black',
-  },
-  helpButtonStyle: {
-    width: '100%',
-    alignSelf: 'center',
-    elevation: 3,
-    borderRadius: 7,
-    justifyContent: 'center',
-  },
-  helpButtonContainer: {
-    width: '100%',
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  helpButtonLabelStyle: {
-    fontSize: 16,
-    letterSpacing: 0.2,
-    fontFamily: 'Poppins-Black',
   },
 });

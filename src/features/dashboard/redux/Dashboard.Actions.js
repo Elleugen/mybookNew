@@ -21,18 +21,6 @@ export const getDashboard = () => async dispatch => {
         currentDashboard: result,
       }),
     );
-
-    // PARSE DATA
-    // const listBook = await Dashboard.getDashboard(value);
-    // dispatch(
-    //     setProducts({
-    //       // currentDashboard: listBook.result,
-    //       currentDashboard: listBook,
-    //     }),
-    // );
-
-    // console.log('getDashboard::', result);
-    // dispatch({type: 'SET_DASHBOARD', payload: result});
   } catch (error) {
     console.log('getDashboard::', error);
   }

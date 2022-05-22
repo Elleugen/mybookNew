@@ -1,3 +1,4 @@
 import Dashboard from './dashboard';
+import Wishlist from './wishlist';
 
-export {Dashboard};
+export {Dashboard, Wishlist};

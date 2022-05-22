@@ -1,13 +1,13 @@
 import React from 'react';
-import {DashboardScreen} from './views';
+import {WishlistScreen} from './views';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 // import Icon from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
 // import {Colors} from '../../resources';
 
 export default {
-  'Dashboard.DashboardScreen': {
-    screen: DashboardScreen,
+  'Dashboard.WishlistScreen': {
+    screen: WishlistScreen,
     options: {
       // header: () => {
       //   const navigation = useNavigation();

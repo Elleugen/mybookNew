@@ -32,6 +32,7 @@ class Dashboard {
     console.log('KWawdsad', keyword);
     const response = await FetchInterceptor.get(
       `/v1/volumes?q=${keyword}`,
+      // '/v1/volumes?q=', {params: {keyword: key}},
       // reqBody,
     );
     // console.log('Response:', response)

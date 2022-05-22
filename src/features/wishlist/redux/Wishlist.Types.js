@@ -1,0 +1,4 @@
+export const wishlistTypes = {
+  SET_WISHLIST: 'SET_WISHLIST',
+  SET_DEFAULT_WISHLIST: 'SET_DEFAULT_WISHLIST',
+};
