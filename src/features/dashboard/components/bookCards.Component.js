@@ -8,11 +8,11 @@ import StarRating from 'react-native-star-rating';
 import Images from '../../../assets';
 
 function BookCardsComponent({currentDashboard, getDashboard}) {
-  console.log('currentDashboard NI:', currentDashboard);
+  // console.log('currentDashboard NI:', currentDashboard);
   useFocusEffect(
     useCallback(() => {
       getDashboard();
-      console.log('currentDashboard(after):', currentDashboard);
+      // console.log('currentDashboard(after):', currentDashboard);
     }, []),
   );
 
