@@ -13,3 +13,9 @@ Unfinnished:
     -Rating using plugin
         ket: blm ketemu mobile plugin yg cocok untuk rater
     -Wishlist validator
+
+
+
+Run app steps:
+1. npm i
+2. npm run android:dev
