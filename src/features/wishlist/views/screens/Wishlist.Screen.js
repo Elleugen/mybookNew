@@ -24,12 +24,9 @@ import {
 } from 'react-native-paper';
 import {useFocusEffect} from '@react-navigation/native';
 import {
-  // BookCards,
-  // Header,
   BookCardsComponent,
   HeaderComponent,
   SearchBarComponent,
-  // } from '../../components';
 } from '../../../dashboard/components';
 import {Theme} from '../../../../configs/ThemeConfig';
 import {FontWeightConfig} from '../../../../configs/FontConfig';
@@ -38,6 +35,7 @@ import Images from '../../../../assets/';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import {selectorCurrentWishlist, getWishlist} from '../../redux';
+import {WishlistComponent} from '../../components';
 
 function WishlistScreen({currentWishlist, getWishlist}) {
   return (
@@ -48,7 +46,7 @@ function WishlistScreen({currentWishlist, getWishlist}) {
         imageStyle={{opacity: 0.8}}>
         <SafeAreaView>
           <HeaderComponent />
-          <BookCardsComponent />
+          <WishlistComponent />
         </SafeAreaView>
       </ImageBackground>
     </View>

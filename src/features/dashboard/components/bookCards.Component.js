@@ -1,6 +1,14 @@
 import React, {useCallback, useState, useEffect} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
-import {View, StyleSheet, TouchableOpacity, Image, Text} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Text,
+  Linking,
+} from 'react-native';
+import {Portal, Dialog} from 'react-native-paper';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import {selectorCurrentDashboard, getDashboard} from '../redux';
@@ -35,6 +43,10 @@ function BookCardsComponent({currentDashboard, getDashboard}) {
     lis.push(<Image style={styles.ratingImage} source={Images.rating} />);
   }
 
+  const [visible, setVisible] = React.useState(false);
+  const showDialog = () => setVisible(true);
+  const hideDialog = () => setVisible(false);
+
   return (
     <View>
       {currentDashboard?.lenght !== 0 &&
@@ -55,111 +67,142 @@ function BookCardsComponent({currentDashboard, getDashboard}) {
           // setRating(books.volumeInfo.averageRating);
           return (
             // <View key={books.id}>
-            <View key={i} style={styles.mainView}>
-              <View style={styles.thumbnailContainer}>
-                <View style={styles.imageContainer}>
-                  <Image
-                    style={styles.image}
-                    // source={Images.background}
-                    source={{
-                      uri: books?.volumeInfo?.imageLinks?.smallThumbnail,
-                    }}
-                  />
+            <TouchableOpacity
+              // onPress={() => {
+              //   setVisible(true);
+              // }}
+              key={i}
+              onPress={() => {
+                console.log('books.previewLink', books.volumeInfo.previewLink);
+                Linking.openURL(books.volumeInfo.previewLink);
+              }}>
+              <View style={styles.mainView}>
+                <View style={styles.thumbnailContainer}>
+                  <View style={styles.imageContainer}>
+                    <Image
+                      style={styles.image}
+                      // source={Images.background}
+                      source={{
+                        uri: books?.volumeInfo?.imageLinks?.thumbnail,
+                      }}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => {
+                      // books?.volumeInfo?.readingModes === true;
+                      setBookmarked(bookmarked + 1);
+                      console.log('bookmarked::', bookmarked);
+                      // console.log(
+                      //   'books?.volumeInfo?.readingModes.text ::',
+                      //   books?.volumeInfo?.readingModes.text,
+                      // );
+                    }}>
+                    {bookmarked % 2 === 0 ? (
+                      <View style={styles.bookmarkImageContainer}>
+                        <Image
+                          style={styles.bookmarkImage}
+                          source={Images.bookmark}
+                        />
+                      </View>
+                    ) : (
+                      <View style={styles.bookmarkImageContainer}>
+                        <Image
+                          style={styles.bookmarkImage}
+                          source={Images.unBookmark}
+                        />
+                      </View>
+                    )}
+                  </TouchableOpacity>
                 </View>
-                <TouchableOpacity
-                  onPress={() => {
-                    // books?.volumeInfo?.readingModes === true;
-                    setBookmarked(bookmarked + 1);
-                    console.log('bookmarked::', bookmarked);
-                    // console.log(
-                    //   'books?.volumeInfo?.readingModes.text ::',
-                    //   books?.volumeInfo?.readingModes.text,
-                    // );
-                  }}>
-                  {bookmarked % 2 === 0 ? (
-                    <View style={styles.bookmarkImageContainer}>
-                      <Image
-                        style={styles.bookmarkImage}
-                        source={Images.bookmark}
-                      />
+                <View>
+                  <View style={styles.titleTextContainer}>
+                    <Text style={styles.bookTitle}>
+                      {books.volumeInfo.title}
+                    </Text>
+                  </View>
+                  {books.volumeInfo.authors == null ||
+                  books.volumeInfo.authors == '' ? (
+                    <View style={styles.authorTextContainer}>
+                      <Text style={styles.bookAuthor}>by unknown</Text>
                     </View>
                   ) : (
-                    <View style={styles.bookmarkImageContainer}>
-                      <Image
-                        style={styles.bookmarkImage}
-                        source={Images.unBookmark}
-                      />
+                    <View style={styles.authorTextContainer}>
+                      <Text style={styles.bookAuthor}>
+                        by {books.volumeInfo.authors}
+                      </Text>
                     </View>
                   )}
-                </TouchableOpacity>
-              </View>
-              <View>
-                <View style={styles.titleTextContainer}>
-                  <Text style={styles.bookTitle}>{books.volumeInfo.title}</Text>
-                </View>
-                {books.volumeInfo.authors == null ||
-                books.volumeInfo.authors == '' ? (
-                  <View style={styles.authorTextContainer}>
-                    <Text style={styles.bookAuthor}>by unknown</Text>
-                  </View>
-                ) : (
-                  <View style={styles.authorTextContainer}>
-                    <Text style={styles.bookAuthor}>
-                      by {books.volumeInfo.authors}
-                    </Text>
-                  </View>
-                )}
 
-                {books.volumeInfo.description == null ||
-                books.volumeInfo.description == '' ? (
-                  <Text
-                    style={styles.headerText}
-                    numberOfLines={2}
-                    ellipsizeMode="tail">
-                    no Desciptions
-                  </Text>
-                ) : (
-                  <Text
-                    style={styles.headerText}
-                    numberOfLines={4}
-                    ellipsizeMode="tail">
-                    {books.volumeInfo.description}
-                  </Text>
-                )}
-              </View>
-              <View>
-                {books.volumeInfo.ratingsCount == null ||
-                books.volumeInfo.ratingsCount == '' ? (
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Text style={styles.ratingText} ellipsizeMode="tail">
-                      no Ratings
+                  {books.volumeInfo.description == null ||
+                  books.volumeInfo.description == '' ? (
+                    <Text
+                      style={styles.headerText}
+                      numberOfLines={2}
+                      ellipsizeMode="tail">
+                      no Desciptions
                     </Text>
-                    {/* <StarRating
+                  ) : (
+                    <Text
+                      style={styles.headerText}
+                      numberOfLines={4}
+                      ellipsizeMode="tail">
+                      {books.volumeInfo.description}
+                    </Text>
+                  )}
+                </View>
+                <View>
+                  {books.volumeInfo.ratingsCount == null ||
+                  books.volumeInfo.ratingsCount == '' ? (
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <Text style={styles.ratingText} ellipsizeMode="tail">
+                        no Ratings
+                      </Text>
+                      {/* <StarRating
                       disabled={false}
                       maxStars={5}
                       // rating={this.state.starCount}
                       // selectedStar={rating => this.onStarRatingPress(rating)}
                     /> */}
-                  </View>
-                ) : (
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Text style={styles.ratingText} ellipsizeMode="tail">
-                      Rating : {books.volumeInfo.averageRating}
-                    </Text>
-                    {lis}
-                    <Image style={styles.ratingImage} source={Images.rating} />
-                    {/* <StarRating
+                    </View>
+                  ) : (
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <Text style={styles.ratingText} ellipsizeMode="tail">
+                        Rating : {books.volumeInfo.averageRating}
+                      </Text>
+                      {lis}
+                      <Image
+                        style={styles.ratingImage}
+                        source={Images.rating}
+                      />
+                      {/* <StarRating
                       disabled={false}
                       maxStars={5}
                       rating={setRating(books.volumeInfo.ratingsCount)}
                       // selectedStar={rating => this.onStarRatingPress(rating)}
                     /> */}
-                  </View>
-                )}
+                    </View>
+                  )}
+                </View>
               </View>
-            </View>
+            </TouchableOpacity>
           );
         })}
+      {/* <Portal>
+        <Dialog
+          containerStyle={{justifyContent: 'flex-end'}}
+          visible={visible}
+          onDismiss={hideDialog}
+          style={{borderRadius: 30, backgroundColor: 'white'}}>
+          <View>
+            <Text>Aku</Text>
+          </View>
+          <Dialog.Content>
+            <View>
+              <Text>{books.volumeInfo.description}</Text>
+            </View>
+          </Dialog.Content>
+        </Dialog>
+      </Portal> */}
     </View>
   );
 }
@@ -176,8 +219,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(BookCardsComponent);
 
 const styles = StyleSheet.create({
   mainView: {
+    borderTopLeftRadius: 20,
     borderBottomRightRadius: 50,
-    borderWidth: 5,
+    borderRightWidth: 2,
+    borderBottomWidth: 5,
     borderLeftColor: 'rgba(255, 255, 255, 0)',
     borderTopColor: 'rgba(255, 255, 255, 0)',
     borderRightColor: 'rgba(255, 0,0, 0.6)',
@@ -232,17 +277,19 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     alignSelf: 'center',
+    flex: 1,
+    marginBottom: 10,
   },
   image: {
     height: 150,
-    width: 300,
+    width: '95%',
     borderRadius: 20,
     justifyContent: 'center',
   },
   bookmarkImage: {
     height: 20,
     width: 20,
-    marginLeft: 10,
+    // marginHorizontal: 10,
     alignItems: 'flex-end',
   },
   bookmarkImageContainer: {

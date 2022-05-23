@@ -29,6 +29,7 @@ import {
   BookCardsComponent,
   HeaderComponent,
   SearchBarComponent,
+  BookRecomendationsComponent,
 } from '../../components';
 import {Theme} from '../../../../configs/ThemeConfig';
 import {FontWeightConfig} from '../../../../configs/FontConfig';
@@ -71,6 +72,7 @@ function DashboardScreen({currentDashboard, getDashboard}) {
         <SafeAreaView>
           {/* <HeaderComponent /> */}
           <SearchBarComponent />
+          {/* <BookRecomendationsComponent /> */}
           <BookCardsComponent />
         </SafeAreaView>
       </ImageBackground>

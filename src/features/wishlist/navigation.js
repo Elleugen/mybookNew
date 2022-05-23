@@ -9,25 +9,6 @@ export default {
   'Dashboard.WishlistScreen': {
     screen: WishlistScreen,
     options: {
-      // header: () => {
-      //   const navigation = useNavigation();
-      //   return (
-      //     <View
-      //       style={{
-      //         ...styles.container,
-      //       }}>
-      //       <TouchableOpacity
-      //         //   onPress={() => {
-      //         //     navigation.navigate('Authentication.OnboardingScreen');
-      //         //   }}
-      //         style={{
-      //           ...styles.iconContainer,
-      //         }}>
-      //         {/* <Icon name="arrow-left" size={25} color={Colors.primary} /> */}
-      //       </TouchableOpacity>
-      //     </View>
-      //   );
-      // },
       headerShown: false,
     },
   },
