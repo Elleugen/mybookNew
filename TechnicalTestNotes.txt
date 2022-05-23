@@ -4,7 +4,7 @@ Done:
     -UI designs
         ket:
         -Dashboard module (Filter/Searchbar, All books dengan validator)
-        -Bookmarks module
+        -Wishlist module
     -Menggunakan material UI (react-native paper)
 
 Unfinnished:
@@ -12,4 +12,4 @@ Unfinnished:
         ket: blm bisa send parameter pada GET method
     -Rating using plugin
         ket: blm ketemu mobile plugin yg cocok untuk rater
-    -Wishlist
+    -Wishlist validator
