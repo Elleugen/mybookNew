@@ -29,6 +29,7 @@ import {
   BookCardsComponent,
   HeaderComponent,
   SearchBarComponent,
+  BookRecomendationsComponent,
 } from '../../components';
 import {Theme} from '../../../../configs/ThemeConfig';
 import {FontWeightConfig} from '../../../../configs/FontConfig';
@@ -67,10 +68,11 @@ function DashboardScreen({currentDashboard, getDashboard}) {
       <ImageBackground
         source={Images.background}
         style={{height: '100%'}}
-        imageStyle={{opacity: 0.8}}>
+        imageStyle={{opacity: 0.9}}>
         <SafeAreaView>
           {/* <HeaderComponent /> */}
           <SearchBarComponent />
+          {/* <BookRecomendationsComponent /> */}
           <BookCardsComponent />
         </SafeAreaView>
       </ImageBackground>

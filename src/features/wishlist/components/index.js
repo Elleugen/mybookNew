@@ -1,3 +1,3 @@
-import WishlistComponent from './searchBar.Component';
+import WishlistComponent from './wishlist.Component';
 
 export {WishlistComponent};

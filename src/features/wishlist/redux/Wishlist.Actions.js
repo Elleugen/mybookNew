@@ -12,6 +12,9 @@ export const setDefaultWishlist = () => ({
 
 export const getWishlist = () => async dispatch => {
   try {
+    // const {data} = await User.getUser();
+    // console.log('getUser::', data);
+
     const result = await Wishlist.getWishlist();
     dispatch(
       setWishlist({

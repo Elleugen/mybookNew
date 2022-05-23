@@ -18,7 +18,7 @@ function WishlistComponent({currentWishlist, getWishlist}) {
   // console.log('searchBooks ::', searchBooks);
 
   const [rating, setRating] = useState(0);
-  const [bookmarked, setBookmarked] = useState(0);
+  const [bookmarked, setBookmarked] = useState(1);
   // const bookmarked[];
 
   // const onStarRatingPress = () => {
@@ -60,7 +60,7 @@ function WishlistComponent({currentWishlist, getWishlist}) {
                     style={styles.image}
                     // source={Images.background}
                     source={{
-                      uri: books?.volumeInfo?.imageLinks?.smallThumbnail,
+                      uri: books?.volumeInfo?.imageLinks?.thumbnail,
                     }}
                   />
                 </View>
@@ -103,7 +103,8 @@ function WishlistComponent({currentWishlist, getWishlist}) {
                 ) : (
                   <View style={styles.authorTextContainer}>
                     <Text style={styles.bookAuthor}>
-                      by {books.volumeInfo.authors}
+                      by {books.volumeInfo.authors},{' '}
+                      {books.volumeInfo.publishedDate}
                     </Text>
                   </View>
                 )}
@@ -152,6 +153,9 @@ function WishlistComponent({currentWishlist, getWishlist}) {
                       rating={setRating(books.volumeInfo.ratingsCount)}
                       // selectedStar={rating => this.onStarRatingPress(rating)}
                     /> */}
+                    <Text style={styles.hashtagText} ellipsizeMode="tail">
+                      #{books.volumeInfo.categories}
+                    </Text>
                   </View>
                 )}
               </View>
@@ -174,8 +178,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(WishlistComponent);
 
 const styles = StyleSheet.create({
   mainView: {
+    borderTopLeftRadius: 20,
     borderBottomRightRadius: 50,
-    borderWidth: 5,
+    borderRightWidth: 2,
+    borderBottomWidth: 5,
     borderLeftColor: 'rgba(255, 255, 255, 0)',
     borderTopColor: 'rgba(255, 255, 255, 0)',
     borderRightColor: 'rgba(255, 0,0, 0.6)',
@@ -217,6 +223,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: 'black',
   },
+  hashtagText: {
+    marginLeft: 20,
+    textAlign: 'center',
+    fontSize: 14,
+    color: 'black',
+  },
   textInputContainer: {
     marginHorizontal: 20,
     marginVertical: 20,
@@ -230,17 +242,19 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     alignSelf: 'center',
+    flex: 1,
+    marginBottom: 10,
   },
   image: {
     height: 150,
-    width: 300,
+    width: '95%',
     borderRadius: 20,
     justifyContent: 'center',
   },
   bookmarkImage: {
     height: 20,
     width: 20,
-    marginLeft: 10,
+    // marginLeft: 10,
     alignItems: 'flex-end',
   },
   bookmarkImageContainer: {
