@@ -68,7 +68,7 @@ function DashboardScreen({currentDashboard, getDashboard}) {
       <ImageBackground
         source={Images.background}
         style={{height: '100%'}}
-        imageStyle={{opacity: 0.8}}>
+        imageStyle={{opacity: 0.9}}>
         <SafeAreaView>
           {/* <HeaderComponent /> */}
           <SearchBarComponent />

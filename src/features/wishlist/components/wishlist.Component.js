@@ -103,7 +103,8 @@ function WishlistComponent({currentWishlist, getWishlist}) {
                 ) : (
                   <View style={styles.authorTextContainer}>
                     <Text style={styles.bookAuthor}>
-                      by {books.volumeInfo.authors}
+                      by {books.volumeInfo.authors},{' '}
+                      {books.volumeInfo.publishedDate}
                     </Text>
                   </View>
                 )}
@@ -152,6 +153,9 @@ function WishlistComponent({currentWishlist, getWishlist}) {
                       rating={setRating(books.volumeInfo.ratingsCount)}
                       // selectedStar={rating => this.onStarRatingPress(rating)}
                     /> */}
+                    <Text style={styles.hashtagText} ellipsizeMode="tail">
+                      #{books.volumeInfo.categories}
+                    </Text>
                   </View>
                 )}
               </View>
@@ -215,6 +219,12 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   ratingText: {
+    textAlign: 'center',
+    fontSize: 14,
+    color: 'black',
+  },
+  hashtagText: {
+    marginLeft: 20,
     textAlign: 'center',
     fontSize: 14,
     color: 'black',

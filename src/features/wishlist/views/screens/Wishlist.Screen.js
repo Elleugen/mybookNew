@@ -43,9 +43,9 @@ function WishlistScreen({currentWishlist, getWishlist}) {
       <ImageBackground
         source={Images.background}
         style={{height: '100%'}}
-        imageStyle={{opacity: 0.8}}>
+        imageStyle={{opacity: 0.9}}>
+        <HeaderComponent />
         <SafeAreaView>
-          <HeaderComponent />
           <WishlistComponent />
         </SafeAreaView>
       </ImageBackground>
